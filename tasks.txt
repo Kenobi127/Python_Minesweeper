@@ -1,0 +1,4 @@
+fix size of window
+fix first try to never be a mine
+fix no termonal when opening
+add the mine icon to the mines
