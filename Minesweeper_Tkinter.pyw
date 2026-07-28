@@ -1,10 +1,9 @@
 #tkinter_minesweeper.py
-#programmer: Mateo Lopez Moncaleano
+#author: Mateo Lopez Moncaleano
 #this program implements the logic from minesweeper and the GUI from tkinter to make an implementation of the game
 import os
 import tkinter as tk
 import random
-import threading
 import time
 
 #values to change the board
@@ -62,7 +61,8 @@ class MinesweeperBoard:
         self.buttons = [[0 for _ in range(cols)] for _ in range(rows)]
         self.create_buttons()
         self.solution_board = [[0 for _ in range(cols)] for _ in range(rows)]
-        self.place_mines()
+        #self.place_mines()
+        self.first_click = True
 
         #create the timer
         self.timer_label = tk.Label(self.frame1, text="Time: 0", bg="gray", fg="white", font=("Helvetica", 12, "bold"))
@@ -88,14 +88,15 @@ class MinesweeperBoard:
                 self.buttons[y][x] = button
 
     #places the mins in the solution board
-    def place_mines(self):
+    def place_mines(self, safe_y, safe_x):
         mines_to_place = self.mines #copy counter
 
         while mines_to_place!=0:                          #loop that sets the mines 
             yrand = random.randint(0,self.rows-1)
             xrand = random.randint(0,self.cols-1)
 
-            if(self.solution_board[yrand][xrand] != "x"):
+            if(self.solution_board[yrand][xrand] != "x"
+               and not (yrand == safe_y and xrand == safe_x)):
                 self.solution_board[yrand][xrand] = "x"
                 mines_to_place -= 1
                 self.MarkNumber(yrand-1, xrand-1)        #top left
@@ -115,10 +116,13 @@ class MinesweeperBoard:
     #function for the left click scenarion of a button
     def on_left_click(self, cur_button, y, x):
         # print(f"position clicked is: {y}, {x}")
-
         #states to ignore the click
         if cur_button["text"]=="F" or cur_button["state"]==tk.DISABLED:
             return
+        
+        if self.first_click:
+            self.place_mines(y, x)
+            self.first_click = False
 
         if self.solution_board[y][x] == "x":        #case 1 it's a mine, LOSE
             for y in range(self.rows):
@@ -185,16 +189,14 @@ class MinesweeperBoard:
     #function that starts the timer
     def start_timer(self):
         self.start_time = time.time()
-        self.timer_thread = threading.Thread(target=self.update_timer)
-        self.timer_thread.daemon = True
-        self.timer_thread.start()
+        self.update_timer()
 
     #function that updates the timer
     def update_timer(self):
-        while not self.game_over:
-            elapsed_time = int(time.time() - self.start_time)
-            self.timer_label.config(text=f"Time: {elapsed_time}")
-            time.sleep(1)
+        if not self.game_over:
+            elapsed = int(time.time() - self.start_time)
+            self.timer_label.config(text=f"Time: {elapsed}")
+            self.root.after(1000, self.update_timer)
 
     #function that restarts the game
     def restart_game(self):
@@ -202,7 +204,6 @@ class MinesweeperBoard:
             widget.destroy() # Destroy the widgets inside the game frame
         self.game_over = False # Reset the game_over flag
         self.__init__(self.root, num_rows, num_cols, num_mines) # Reinitialize the game
-        self.start_timer() # Restart the timer
 
 #Create a Tkinter window
 root = tk.Tk()
@@ -214,5 +215,6 @@ root.configure(background="gray")
 
 #create the board with game_frame as interactive frame
 board = MinesweeperBoard(root, num_rows, num_cols, num_mines)
+root.resizable(False, False)
 
 root.mainloop()
