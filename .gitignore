@@ -1,0 +1,6 @@
+# Python Caches (Generated automatically when you run src/app.py or cli/terminal_version.py)
+__pycache__/
+*.pyc
+
+# Virtual Environment (Matches your local .venv folder)
+.venv/

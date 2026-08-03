@@ -1,4 +1,4 @@
-# File: Minesweeper.py
+# File: minesweeper_terminal.py
 # Programmer: Mateo Lopez Moncaleano
 # Date: 07/16/2023
 # This program simulates a Minesweeper game in the terminal doing a 9x9 board with 10 mines. 
