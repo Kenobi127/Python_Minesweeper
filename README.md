@@ -28,13 +28,17 @@ A desktop implementation of the classic Minesweeper game built in Python using T
 
 From the root project directory, run:
 
+```bash
 python src/app.py
+```
 
 ### Running the Terminal Version
 
 If you want to play the command-line version:
 
+```bash
 python cli/terminal_version.py
+```
 
 ---
 
