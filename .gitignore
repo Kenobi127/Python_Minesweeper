@@ -4,3 +4,8 @@ __pycache__/
 
 # Virtual Environment (Matches your local .venv folder)
 .venv/
+
+# PyInstaller build artifacts
+build/
+dist/
+*.spec
