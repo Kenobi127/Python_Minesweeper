@@ -29,7 +29,7 @@ A desktop implementation of the classic Minesweeper game built in Python using T
 From the root project directory, run:
 
 ```bash
-python src/app.py
+python src/tkinter_version.py
 ```
 
 ### Running the Terminal Version
