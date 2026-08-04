@@ -3,7 +3,7 @@
 A desktop implementation of the classic Minesweeper game built in Python using Tkinter, featuring custom graphics, and an alternative terminal-based CLI mode.
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
+![License: PolyForm NC](https://img.shields.io/badge/License-PolyForm%20NC-blue)
 
 ---
 
@@ -38,6 +38,6 @@ python cli/terminal_version.py
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Mateo Lopez Moncaleano**
